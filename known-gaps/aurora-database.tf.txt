@@ -1,0 +1,32 @@
+# Tier 3: Aurora PostgreSQL Serverless v2 with the RDS Data API.
+# manage_master_user_password makes RDS create and rotate the password in
+# Secrets Manager. No password in this code, in tfvars or in the state file.
+resource "aws_db_subnet_group" "db" {
+  name       = "${var.name}-db"
+  subnet_ids = aws_subnet.private[*].id
+}
+
+resource "aws_rds_cluster" "db" {
+  cluster_identifier          = "${var.name}-db"
+  engine                      = "aurora-postgresql"
+  engine_mode                 = "provisioned"
+  database_name               = "notes"
+  master_username             = "app"
+  manage_master_user_password = true
+  enable_http_endpoint        = true
+  db_subnet_group_name        = aws_db_subnet_group.db.name
+  storage_encrypted           = true
+  skip_final_snapshot         = true
+
+  serverlessv2_scaling_configuration {
+    min_capacity = 0
+    max_capacity = 1
+  }
+}
+
+resource "aws_rds_cluster_instance" "db" {
+  identifier         = "${var.name}-db-1"
+  cluster_identifier = aws_rds_cluster.db.id
+  engine             = aws_rds_cluster.db.engine
+  instance_class     = "db.serverless"
+}
