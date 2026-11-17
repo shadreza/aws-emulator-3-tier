@@ -1,4 +1,4 @@
-# Hands-on: a three-tier app on AWS Emulator, with no AWS account
+# aws-emulator-3-tier: a three-tier app on AWS Emulator, with no AWS account
 
 A notes app with a page, an API and a database, deployed with Terraform to
 AWS Emulator on your own machine. No AWS account, no access keys, no bill.
@@ -9,8 +9,32 @@ AWS Emulator on your own machine. No AWS account, no access keys, no bill.
 | Server | API Gateway HTTP API and a Python Lambda function | the same; the function really runs |
 | Database | DynamoDB table, reached through the function's IAM role | the same |
 
+![The browser reaches one CloudFront origin. CloudFront serves the page from a private S3 bucket, signed by Origin Access Control, and sends /api/* to an API Gateway HTTP API. The API invokes a Python Lambda function that writes and reads a DynamoDB table through an IAM role allowed only PutItem and Query, and prints to CloudWatch Logs. Everything but the browser runs inside AWS Emulator on 127.0.0.1:9297.](docs/architecture.svg)
+
+One address for the page and the API, so the browser needs no CORS. No
+database password anywhere: the function reaches the table through its role.
+
 The Terraform has no endpoint and no keys in it. The shell decides where it
 deploys, so the same code goes to a real account later.
+
+![emulator-env.sh points the shell at the emulator and unsets real AWS keys. up.sh checks that the endpoint is 127.0.0.1 and the account is 000000000000 before terraform apply, and refuses otherwise, so a real account is never reached.](docs/where-it-deploys.svg)
+
+## What's in it
+
+```
+terraform/
+  frontend.tf    S3 bucket, its files, OAC, CloudFront (/ and /api/*), bucket policy
+  api.tf         IAM role and policy, log group, Lambda, HTTP API, route, stage
+  database.tf    DynamoDB table (on demand, encrypted, point-in-time recovery)
+  providers.tf   AWS provider, pinned to 5.x (see known-gaps)
+app/handler.py   the API: POST and GET /api/notes, in 46 lines
+web/             index.html, app.js, style.css: the notes page
+scripts/
+  emulator-env.sh  points this shell at the emulator, unsets real AWS keys
+  up.sh, down.sh   deploy and remove; both refuse anything but the emulator
+known-gaps/      what didn't work, per emulator version, and probe/ to recheck it
+docs/            the two diagrams above
+```
 
 First tested on 2026-11-12 with AWS Emulator 1.0.322, Terraform 1.15.9, AWS
 CLI 2.37.9, Arch Linux. Last run end to end on 2026-11-17 with 1.0.487: the
@@ -80,8 +104,8 @@ aws sts get-caller-identity
 You should see account `000000000000`. The script also unsets any real AWS
 keys in this shell, so nothing you run here can reach your real account.
 
-Run every command below from this `handson` folder, in a shell where you
-sourced the script. A new terminal needs `source scripts/emulator-env.sh`
+Run every command below from this folder, in a shell where you sourced the
+script. A new terminal needs `source scripts/emulator-env.sh`
 again.
 
 ## 4. Deploy
@@ -91,7 +115,8 @@ again.
 ```
 
 `up.sh` refuses to run unless the endpoint is `127.0.0.1` and the account is
-`000000000000`. Terraform creates 19 resources in about 40 seconds, most of it
+`000000000000`. It deploys to the emulator this shell points at (9297 if none);
+to use another one, pass its port: `./scripts/up.sh 9298`. Terraform creates 19 resources in about 40 seconds, most of it
 waiting for CloudFront. It prints the site's address.
 
 ## 5. Use it

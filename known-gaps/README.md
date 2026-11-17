@@ -37,6 +37,12 @@ works`); the other time functions and the error wording weren't rechecked.
 Lambda reaches RDS for MySQL (`{"ok": true, "server": "8.0.40", "result":
 "42"}`).
 
+Rechecked on 1.0.488 (release date 2026-11-17) on 2026-11-17: the same six
+results as 1.0.487. The notes app deploys and works; once, the first POST after
+the deploy returned 500 with `RuntimeError: the invocation ran past its memory
+ceiling` in the function's log although the note was saved (also seen once on
+1.0.382). Send it again and it works.
+
 | What | What happened | What the hands-on does |
 |---|---|---|
 | AWS provider 6.x and S3 buckets | `aws_s3_bucket` fails: the provider reads bucket tags through S3 Control, which puts the account ID in the host name (`000000000000.127.0.0.1`). The docs say S3 Control can't reach the emulator. | Pins `hashicorp/aws ~> 5.100`. |

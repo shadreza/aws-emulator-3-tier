@@ -133,7 +133,7 @@ with zipfile.ZipFile(sys.argv[1], "w") as z:
   destroy lambda-rds
 }
 
-aws-emulator -v 2>/dev/null | head -1
+echo "Endpoint: $AWS_ENDPOINT_URL (aws-emulator on PATH: $(aws-emulator -v 2>/dev/null | head -1 | sed 's/Version: //'); the running one may differ)"
 for check in "${@:-aurora security-group provider6 ecs rds-mysql lambda-rds}"; do
   for c in $check; do
     case "$c" in

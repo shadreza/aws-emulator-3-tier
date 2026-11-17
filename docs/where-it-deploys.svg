@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 250" width="1040" height="250" role="img" aria-label="The shell decides where the Terraform deploys: emulator-env.sh points it at the emulator and removes real keys, and up.sh refuses to apply anywhere else.">
+<style>
+  text { font-family:"IBM Plex Sans","Inter","Noto Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  .n { stroke-width:1.2; }
+  .n.dash { stroke-dasharray:5 4; stroke-width:1.3; }
+  .ab { font-family:"IBM Plex Mono","JetBrains Mono","Noto Sans Mono",ui-monospace,Menlo,monospace; font-size:8.5px; font-weight:600; fill:#fff; }
+  .t { font-size:12px; font-weight:600; }
+  .s { font-size:10.5px; }
+  .gt { font-size:12px; font-weight:600; }
+  .grp, .pub, .priv, .iso { stroke-width:1; }
+  .region { fill:none; stroke:#00A4A6; stroke-width:1.4; stroke-dasharray:7 5; }
+  .vpc { fill:none; stroke:#8C4FFF; stroke-width:1.4; }
+  .pub { stroke:#7AA116; } .priv { stroke:#00A4A6; } .iso { stroke:#147EBA; }
+  text.reg { fill:#00A4A6; } text.vpcl { fill:#8C4FFF; }
+  text.publ { fill:#7AA116; } text.privl { fill:#00A4A6; } text.isol { fill:#147EBA; }
+  .sl { font-family:"IBM Plex Mono","JetBrains Mono","Noto Sans Mono",ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:.06em; }
+  .ar { fill:none; stroke-width:1.4; }
+  .ar.thin { stroke-dasharray:3 3; }
+  .ar.bad { stroke:#DD344C; }
+  .al { font-size:10.5px; paint-order:stroke; stroke-width:3px; stroke-linejoin:round; }
+  .lg { font-size:11px; }
+  .ghost { opacity:.28; }
+  .ring { fill:none; stroke-width:2.2; }
+  .down { stroke:#DD344C; stroke-width:1.4; stroke-dasharray:6 4; }
+  .dn { font-size:11px; font-weight:700; fill:#DD344C; }
+  .ft { font-size:14px; font-weight:700; }
+  .fs { font-size:11.5px; }
+  .note { font-size:11px; font-style:italic; }
+
+  .bg { fill:#F3F6F8; }
+  .n { fill:#FFFFFF; stroke:#C6D0D9; }
+  .n.dash { stroke:#15202B; }
+  .t, .gt, .ft { fill:#15202B; }
+  .s, .sl, .al, .lg, .fs, .note { fill:#5A6877; }
+  .al { stroke:#F3F6F8; }
+  .grp { fill:#F7F9FB; stroke:#C6D0D9; }
+  .pub { fill:rgba(122,161,22,.07); } .priv { fill:rgba(0,164,166,.06); } .iso { fill:rgba(20,126,186,.07); }
+  .ar { stroke:#5A6877; } .mk { fill:#5A6877; } .mkbad { fill:#DD344C; }
+  .ring { stroke:#D69E2E; }
+  .down { fill:rgba(221,52,76,.07); }
+  @media (prefers-color-scheme: dark) {
+  .bg { fill:#0E141A; }
+    .n { fill:#161F28; stroke:#344352; }
+    .n.dash { stroke:#E2E8EE; }
+    .t, .gt, .ft { fill:#E2E8EE; }
+    .s, .sl, .al, .lg, .fs, .note { fill:#95A3B1; }
+    .al { stroke:#0E141A; }
+    .grp { fill:#121A22; stroke:#344352; }
+    .pub { fill:rgba(122,161,22,.10); } .priv { fill:rgba(0,164,166,.09); } .iso { fill:rgba(20,126,186,.12); }
+    .ar { stroke:#95A3B1; } .mk { fill:#95A3B1; } .mkbad { fill:#DD344C; }
+    .ring { stroke:#F6C453; }
+    .down { fill:rgba(221,52,76,.12); }
+  }
+</style>
+<defs>
+  <marker id="h" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk" d="M0,0 L10,5 L0,10 z"/></marker>
+  <marker id="hb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mkbad" d="M0,0 L10,5 L0,10 z"/></marker>
+</defs>
+<rect class="bg" x="0" y="0" width="1040" height="250" rx="10"/>
+<g transform="translate(0,0)">
+<rect class="region" x="844" y="40" width="190" height="120" rx="8"/>
+<text class="gt reg" x="856" y="59" text-anchor="start">127.0.0.1:9297</text>
+<rect class="n" x="14" y="78" width="166" height="44" rx="6"/>
+<rect x="22" y="86" width="28" height="28" rx="4" fill="#5A6877"/>
+<text class="ab" x="36" y="103.5" text-anchor="middle">SH</text>
+<text class="t" x="58" y="97">your shell</text>
+<text class="s" x="58" y="112">may hold real keys</text>
+<rect class="n" x="214" y="78" width="170" height="44" rx="6"/>
+<rect x="222" y="86" width="28" height="28" rx="4" fill="#DD344C"/>
+<text class="ab" x="236" y="103.5" text-anchor="middle">ENV</text>
+<text class="t" x="258" y="97">emulator-env.sh</text>
+<text class="s" x="258" y="112">unsets real keys</text>
+<rect class="n" x="420" y="78" width="170" height="44" rx="6"/>
+<rect x="428" y="86" width="28" height="28" rx="4" fill="#DD344C"/>
+<text class="ab" x="442" y="103.5" text-anchor="middle">UP</text>
+<text class="t" x="464" y="97">up.sh</text>
+<text class="s" x="464" y="112">checks, then applies</text>
+<rect class="n" x="626" y="78" width="180" height="44" rx="6"/>
+<rect x="634" y="86" width="28" height="28" rx="4" fill="#ED7100"/>
+<text class="ab" x="648" y="103.5" text-anchor="middle">TF</text>
+<text class="t" x="670" y="97">terraform apply</text>
+<text class="s" x="670" y="112">no endpoint in code</text>
+<rect class="n" x="856" y="78" width="166" height="44" rx="6"/>
+<rect x="864" y="86" width="28" height="28" rx="4" fill="#8C4FFF"/>
+<text class="ab" x="878" y="103.5" text-anchor="middle">EMU</text>
+<text class="t" x="900" y="97">AWS Emulator</text>
+<text class="s" x="900" y="112">its own key</text>
+<rect class="n dash" x="420" y="196" width="180" height="44" rx="6"/>
+<rect x="428" y="204" width="28" height="28" rx="4" fill="#5A6877"/>
+<text class="ab" x="442" y="221.5" text-anchor="middle">AWS</text>
+<text class="t" x="464" y="215">a real account</text>
+<text class="s" x="464" y="230">refused, never reached</text>
+<path class="ar" d="M180,100 H212" marker-end="url(#h)"/>
+<path class="ar" d="M384,100 H418" marker-end="url(#h)"/>
+<path class="ar" d="M590,100 H624" marker-end="url(#h)"/>
+<text class="al" x="607" y="90" text-anchor="middle">ok</text>
+<path class="ar" d="M806,100 H854" marker-end="url(#h)"/>
+<path class="ar bad" d="M505,122 V194" marker-end="url(#hb)"/>
+<text class="al" x="640" y="166" text-anchor="middle">refuses unless 127.0.0.1 and 000000000000</text>
+</g>
+</svg>

@@ -3,7 +3,7 @@
 # isn't a local emulator, so a missing env var can't deploy to a real account.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/emulator-env.sh "${1:-9297}"
+source scripts/emulator-env.sh "${1:-}"
 
 case "${AWS_ENDPOINT_URL:-}" in
   https://127.0.0.1:*) ;;

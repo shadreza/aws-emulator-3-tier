@@ -3,7 +3,7 @@
 # everything, because it keeps all state in memory.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-source scripts/emulator-env.sh "${1:-9297}"
+source scripts/emulator-env.sh "${1:-}"
 case "${AWS_ENDPOINT_URL:-}" in
   https://127.0.0.1:*) ;;
   *) echo "AWS_ENDPOINT_URL is not a local emulator. Stopping." >&2; exit 1 ;;
